@@ -15,11 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.student.Address;
-import seedu.address.model.student.Email;
-import seedu.address.model.student.Name;
-import seedu.address.model.student.Phone;
-import seedu.address.model.student.Student;
+import seedu.address.model.student.*;
 
 import seedu.address.model.tag.Tag;
 
@@ -40,7 +36,7 @@ public class StudentEditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            //+ "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -129,6 +125,7 @@ public class StudentEditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private TutorialGroup tutorialGroup;
         private Set<Tag> tags;
 
         public EditStudentDescriptor() {}
@@ -142,6 +139,7 @@ public class StudentEditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setTutorialGroup(toCopy.tutorialGroup);
             setTags(toCopy.tags);
         }
 
@@ -149,7 +147,7 @@ public class StudentEditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, tutorialGroup);
         }
 
         public void setName(Name name) {
@@ -175,6 +173,15 @@ public class StudentEditCommand extends Command {
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
         }
+
+        public void setTutorialGroup(TutorialGroup tutorialGroup) {
+            this.tutorialGroup = tutorialGroup;
+        }
+
+        public Optional<TutorialGroup> getTutorialGroup() {
+            return Optional.ofNullable(tutorialGroup);
+        }
+
 
         public void setAddress(Address address) {
             this.address = address;
