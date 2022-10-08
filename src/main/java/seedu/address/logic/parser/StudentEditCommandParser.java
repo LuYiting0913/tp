@@ -36,8 +36,8 @@ public class StudentEditCommandParser implements Parser<StudentEditCommand> {
     public StudentEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TUTORIAL_GROUP, 
-                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
+                ArgumentTokenizer
+                        .tokenize(args, PREFIX_NAME, PREFIX_TUTORIAL_GROUP, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
 
         Index index;
 
