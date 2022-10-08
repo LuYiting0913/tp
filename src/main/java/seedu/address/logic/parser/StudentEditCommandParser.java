@@ -58,8 +58,8 @@ public class StudentEditCommandParser implements Parser<StudentEditCommand> {
             editStudentDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_TUTORIAL_GROUP).isPresent()) {
-            editStudentDescriptor.setTutorialGroup(ParserUtil.parseTutorialGroup(argMultimap.getValue(PREFIX_TUTORIAL_GROUP)
-                    .get()));
+            editStudentDescriptor.setTutorialGroup(ParserUtil.parseTutorialGroup(argMultimap
+                    .getValue(PREFIX_TUTORIAL_GROUP).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStudentDescriptor::setTags);
