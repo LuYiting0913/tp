@@ -63,6 +63,7 @@ public class Student {
         this.tags.addAll(tags);
         this.tutorialGroup = tutorialGroup;
         tutorialGroup.addStudentToTutorialGroup(this);
+        this.address = null;
     }
 
     public Name getName() {
