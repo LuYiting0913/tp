@@ -18,7 +18,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Phone;
@@ -44,7 +43,6 @@ public class StudentEditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            //+ "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -100,11 +98,10 @@ public class StudentEditCommand extends Command {
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
         Phone updatedPhone = editStudentDescriptor.getPhone().orElse(studentToEdit.getPhone());
         Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
-        Address updatedAddress = editStudentDescriptor.getAddress().orElse(studentToEdit.getAddress());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
         TutorialGroup updatedTutorialGroup = editStudentDescriptor.getTutorialGroup()
                 .orElse(studentToEdit.getTutorialGroup());
-        return new Student(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedTutorialGroup);
+        return new Student(updatedName, updatedPhone, updatedEmail, updatedTags, updatedTutorialGroup);
     }
 
     @Override
@@ -133,7 +130,6 @@ public class StudentEditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
         private TutorialGroup tutorialGroup;
         private Set<Tag> tags;
 
@@ -147,7 +143,6 @@ public class StudentEditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTutorialGroup(toCopy.tutorialGroup);
             setTags(toCopy.tags);
         }
@@ -156,7 +151,7 @@ public class StudentEditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, tutorialGroup);
+            return CollectionUtil.isAnyNonNull(name, phone, email, tags, tutorialGroup);
         }
 
         public void setName(Name name) {
@@ -189,15 +184,6 @@ public class StudentEditCommand extends Command {
 
         public Optional<TutorialGroup> getTutorialGroup() {
             return Optional.ofNullable(tutorialGroup);
-        }
-
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
         }
 
         /**
@@ -235,7 +221,6 @@ public class StudentEditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }
     }

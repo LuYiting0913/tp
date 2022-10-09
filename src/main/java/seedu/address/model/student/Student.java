@@ -52,6 +52,19 @@ public class Student {
         tutorialGroup.addStudentToTutorialGroup(this);
     }
 
+    /**
+     * Overload the constructor.
+     */
+    public Student(Name name, Phone phone, Email email, Set<Tag> tags, TutorialGroup tutorialGroup) {
+        requireAllNonNull(name, phone, email, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.tags.addAll(tags);
+        this.tutorialGroup = tutorialGroup;
+        tutorialGroup.addStudentToTutorialGroup(this);
+    }
+
     public Name getName() {
         return name;
     }
