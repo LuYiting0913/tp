@@ -35,6 +35,6 @@ public class StudentListCommandTest {
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showStudentAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new StudentListCommand(), model,StudentListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new StudentListCommand(), model, StudentListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
