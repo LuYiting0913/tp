@@ -102,6 +102,9 @@ public class AddressBookParser {
         case TutorialGroupListCommand.COMMAND_WORD:
             return new TutorialGroupListCommand();
 
+        case TutorialGroupFilterCommand.COMMAND_WORD:
+            return new TutorialGroupFilterCommandParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
