@@ -1,7 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.tutorialgroup;
 
 import java.util.List;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Student;
@@ -48,7 +50,7 @@ public class TutorialGroupFilterCommand extends Command {
                 result += student + "\n";
             }
         }
-        return new CommandResult(result + String.format(MESSAGE_SUCCESS, toFilter));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toFilter) + "\n" + result);
     }
 
     @Override

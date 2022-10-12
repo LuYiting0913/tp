@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.TutorialGroupFilterCommand;
+import seedu.address.logic.commands.tutorialgroup.TutorialGroupFilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.student.TutorialGroup;
 
