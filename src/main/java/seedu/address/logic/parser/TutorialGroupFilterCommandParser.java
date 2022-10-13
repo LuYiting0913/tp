@@ -1,13 +1,17 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIAL_GROUP;
+
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.tutorialgroup.TutorialGroupFilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.student.TutorialGroup;
 
-import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIAL_GROUP;
+
+
 
 
 /**
@@ -18,8 +22,8 @@ public class TutorialGroupFilterCommandParser implements Parser<TutorialGroupFil
     /**
      * Parses the given {@code String} of arguments in the context of the TaskAddCommand
      * and returns an TaskAddCommand object for execution.
+     * @return tutorialFilterCommand
      * @throws ParseException if the user input does not conform the expected format
-     * @return
      */
     public TutorialGroupFilterCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

@@ -15,9 +15,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-
-import seedu.address.logic.commands.tutorialgroup.TutorialGroupFilterCommand;
-
 import seedu.address.logic.commands.student.StudentAddCommand;
 import seedu.address.logic.commands.student.StudentDeleteCommand;
 import seedu.address.logic.commands.student.StudentEditCommand;
@@ -26,6 +23,7 @@ import seedu.address.logic.commands.task.TaskAddCommand;
 import seedu.address.logic.commands.task.TaskEditCommand;
 import seedu.address.logic.commands.tutorialgroup.TutorialGroupAddCommand;
 import seedu.address.logic.commands.tutorialgroup.TutorialGroupDeleteCommand;
+import seedu.address.logic.commands.tutorialgroup.TutorialGroupFilterCommand;
 import seedu.address.logic.commands.tutorialgroup.TutorialGroupListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.student.StudentAddCommandParser;

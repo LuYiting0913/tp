@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.tutorialgroup;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import seedu.address.logic.commands.Command;
@@ -9,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.TutorialGroup;
 
-import static java.util.Objects.requireNonNull;
+
 
 /**
  * Adds a tutorial group to the address book.
