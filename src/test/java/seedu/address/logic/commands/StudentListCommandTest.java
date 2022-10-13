@@ -6,10 +6,10 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalStudents.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStudents.getTypicalStudents;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import seedu.address.logic.commands.student.StudentListCommand;
 import seedu.address.model.Model;
