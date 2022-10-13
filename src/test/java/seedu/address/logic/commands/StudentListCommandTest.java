@@ -12,6 +12,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
+import seedu.address.logic.commands.student.StudentListCommand;
+
+
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -21,10 +25,12 @@ public class StudentListCommandTest {
     private Model model;
     private Model expectedModel;
 
+
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
     }
 
     @Test
