@@ -35,6 +35,6 @@ public class StudentListCommand extends Command {
             display += students.get(i).toString() + "\n";
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + display);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
