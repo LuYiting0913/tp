@@ -42,7 +42,7 @@ public class TutorialGroupAddCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_tutorialGroupAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingTutorialGroupAdded modelStub = new ModelStubAcceptingTutorialGroupAdded();
         TutorialGroup validTutorialGroup = new TutorialGroupBuilder().build();
 
@@ -54,7 +54,7 @@ public class TutorialGroupAddCommandTest {
     }
 
     @Test
-    public void execute_duplicateStudent_throwsCommandException() {
+    public void execute_duplicateTutorialGroup_throwsCommandException() {
         TutorialGroup validTutorialGroup = new TutorialGroupBuilder().build();
 
         TutorialGroupAddCommand tutorialGroupAddCommand = new TutorialGroupAddCommand(validTutorialGroup);
@@ -66,26 +66,27 @@ public class TutorialGroupAddCommandTest {
 
     @Test
     public void equals() {
-        Student alice = new StudentBuilder().withName("Alice").build();
-        Student bob = new StudentBuilder().withName("Bob").build();
-        StudentAddCommand addAliceCommand = new StudentAddCommand(alice);
-        StudentAddCommand addBobCommand = new StudentAddCommand(bob);
+
+        TutorialGroup groupA = new TutorialGroupBuilder().withName("T02").build();
+        TutorialGroup groupB = new TutorialGroupBuilder().withName("T03").build();
+        TutorialGroupAddCommand addTutorialGroupACommand = new TutorialGroupAddCommand(groupA);
+        TutorialGroupAddCommand addTutorialGroupBCommand = new TutorialGroupAddCommand(groupB);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addTutorialGroupACommand.equals(addTutorialGroupACommand));
 
         // same values -> returns true
-        StudentAddCommand addAliceCommandCopy = new StudentAddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        TutorialGroupAddCommand addTutorialGroupACommandCopy = new TutorialGroupAddCommand(groupA);
+        assertTrue(addTutorialGroupACommand.equals(addTutorialGroupACommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addTutorialGroupACommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addTutorialGroupACommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addTutorialGroupACommand.equals(addTutorialGroupBCommand));
     }
 
     /**
