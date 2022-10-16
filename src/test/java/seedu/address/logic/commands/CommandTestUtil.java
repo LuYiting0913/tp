@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.student.NameContainsKeywordsPredicate;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.TutorialGroup;
+import seedu.address.model.student.TutorialNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditDescriptorBuilder;
 import seedu.address.testutil.EditStudentDescriptorBuilder;
 
@@ -166,8 +167,8 @@ public class CommandTestUtil {
 
         TutorialGroup tutorialGroup = model.getFilteredTutorialGroupList().get(targetIndex.getZeroBased());
         final String[] splitName = tutorialGroup.toString().split("\\s+");
-        //model.updateFilteredTutorialGroupList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-        //assertEquals(1, model.getFilteredTutorialGroupList().size());
+        model.updateFilteredTutorialGroupList(new TutorialNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        assertEquals(1, model.getFilteredTutorialGroupList().size());
     }
 
 }
