@@ -170,7 +170,14 @@ The tutorial group feature is facilitated by `TutorialGroup`. It implements the 
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. // TODO: add later
+Step 1. The user launches the application for the first time. 
+
+Step 2. The user executes `tutorialList` command to display all the tutorial groups.
+
+Step 3. The user executes `tutorialAdd g/T03` command to add a new tutorial group.
+
+Step 1. The user executes `studentEdit 1 g/T03` command to assign the first student to the newly created tutorial group.
+
 
 
 ### \[Proposed\] Undo/redo feature
