@@ -1,17 +1,19 @@
 package seedu.address.logic.parser.student;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TUTORIAL_GROUP;
+
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.student.StudentEnrollCommand.EditStudentDescriptor;
 import seedu.address.logic.commands.student.StudentEnrollCommand;
+import seedu.address.logic.commands.student.StudentEnrollCommand.EditStudentDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+
 
 
 /**
@@ -35,7 +37,8 @@ public class StudentEnrollCommandParser implements Parser<StudentEnrollCommand> 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StudentEnrollCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    StudentEnrollCommand.MESSAGE_USAGE), pe);
         }
 
         EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
