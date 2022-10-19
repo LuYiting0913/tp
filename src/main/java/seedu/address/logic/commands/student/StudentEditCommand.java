@@ -88,11 +88,6 @@ public class StudentEditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        if (studentToEdit.belongsTo(editedStudent.getTutorialGroup())
-                && !model.hasTutorialGroup(editedStudent.getTutorialGroup())) {
-            throw new CommandException(MESSAGE_TUTORIAL_GROUP_NOT_FOUND);
-        }
-
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedStudent));

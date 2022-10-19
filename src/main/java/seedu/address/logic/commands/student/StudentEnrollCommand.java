@@ -35,7 +35,7 @@ public class StudentEnrollCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TUTORIAL_GROUP + "TUTORIAL GROUP ";
 
-    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Student to %2$s: %1$s ";
+    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Student to: %1$s ";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
     public static final String MESSAGE_TUTORIAL_GROUP_NOT_FOUND = "This tutorial group is not found.";
     public static final String MESSAGE_NOT_EDITED = "Tutorial group not edited.";
@@ -79,8 +79,7 @@ public class StudentEnrollCommand extends Command {
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ENROLL_PERSON_SUCCESS, editedStudent,
-                editedStudent.getTutorialGroup()));
+        return new CommandResult(String.format(MESSAGE_ENROLL_PERSON_SUCCESS, editedStudent));
     }
 
     /**
@@ -123,6 +122,9 @@ public class StudentEnrollCommand extends Command {
      */
     public static class EditStudentDescriptor {
         private TutorialGroup tutorialGroup;
+        private Name name;
+        private Phone phone;
+        private Email email;
 
         public EditStudentDescriptor() {}
 
@@ -149,6 +151,31 @@ public class StudentEnrollCommand extends Command {
         public Optional<TutorialGroup> getTutorialGroup() {
             return Optional.ofNullable(tutorialGroup);
         }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
+
+        public void setEmail(Email email) {
+            this.email = email;
+        }
+
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
+        }
+
 
 
         @Override
