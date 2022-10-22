@@ -21,7 +21,7 @@ class JsonAdaptedTutorialGroup {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedTutorialGroup(@JsonProperty("name") String name) {
+    public JsonAdaptedTutorialGroup(@JsonProperty("tutorial") String name) {
         this.name = name;
     }
 

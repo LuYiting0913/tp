@@ -93,9 +93,9 @@ public class TypicalStudents {
         for (Student student : getTypicalStudents()) {
             ab.addStudent(student);
         }
-        ab.addTutorialGroup(new TutorialGroup("T01"));
-        ab.addTutorialGroup(new TutorialGroup("T02"));
-        ab.addTutorialGroup(new TutorialGroup("T03"));
+//        ab.addTutorialGroup(new TutorialGroup("T01"));
+//        ab.addTutorialGroup(new TutorialGroup("T02"));
+//        ab.addTutorialGroup(new TutorialGroup("T03"));
 
         return ab;
     }
