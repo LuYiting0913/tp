@@ -73,7 +73,7 @@ public class TaskEditCommand extends Command {
         List<Task> lastShownList = model.getFilteredTaskList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
@@ -105,14 +105,15 @@ public class TaskEditCommand extends Command {
         TaskDeadline updatedTaskDeadline = editStudentDescriptor.getTaskDeadline().orElse(taskToEdit.getTaskDeadline());
 
         Set<Student> students = new HashSet<>();
-        for (String studentName : editStudentDescriptor.getStudentNames()) {
-            if (isNull(model.findStudent(studentName))) {
-                throw new CommandException(MESSAGE_INVALID_STUDENT);
+        if (editStudentDescriptor.getStudentNames() != null) {
+            for (String studentName : editStudentDescriptor.getStudentNames()) {
+                if (isNull(model.findStudent(studentName))) {
+                    throw new CommandException(MESSAGE_INVALID_STUDENT);
+                }
+
+                students.add(model.findStudent(studentName));
             }
-
-            students.add(model.findStudent(studentName));
         }
-
 
         return new Task(updatedTaskName, updatedTaskDescription, updatedTaskDeadline, students);
     }
