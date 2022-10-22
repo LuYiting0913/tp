@@ -10,5 +10,8 @@
     "phone": "94351253",
     "email": "pauline@example.com"
   } ],
-  "tasks": []
+  "tasks": [],
+  "groups": [{
+    "tutorialName": "T01"
+  }]
 }

@@ -43,5 +43,14 @@
     "tutorial": "T04",
     "tagged" : [ ]
   } ],
-  "tasks": []
+  "tasks": [],
+  "groups": [{
+    "tutorialName": "T01"
+  }, {
+    "tutorialName": "T02"
+  }, {
+    "tutorialName": "T03"
+  }, {
+    "tutorialName": "T04"
+  }]
 }
