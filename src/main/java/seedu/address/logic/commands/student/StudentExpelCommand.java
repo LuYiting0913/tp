@@ -43,8 +43,8 @@ public class StudentExpelCommand extends Command {
     public static final String MESSAGE_TUTORIAL_GROUP_NOT_FOUND = "This tutorial group is not found.";
     public static final String MESSAGE_NOT_EDITED = "Tutorial group not edited.";
     public static final String MESSAGE_DOES_NOT_BELONG_TO_THIS_GROUP = "The student does not belong to this group";
-    public static final String MESSAGE_TUTORIAL_NOT_INITIATED = "Tutorial group not initiated for this student. " +
-            "Cannot expel the student.";
+    public static final String MESSAGE_TUTORIAL_NOT_INITIATED = "Tutorial group not initiated for this student. "
+            + "Cannot expel the student.";
 
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;

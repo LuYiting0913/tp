@@ -62,7 +62,9 @@ public class Student {
     }
 
 
-    public boolean isEnrolledInTutorial() { return tutorialGroup.isInitiated(); }
+    public boolean isEnrolledInTutorial() {
+        return tutorialGroup.isInitiated();
+    }
 
     public TutorialGroup getTutorialGroup() {
         return tutorialGroup;
