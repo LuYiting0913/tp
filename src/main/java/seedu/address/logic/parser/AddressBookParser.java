@@ -10,10 +10,13 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.grade.GradeEditCommand;
+import seedu.address.logic.commands.grade.GradeViewCommand;
 import seedu.address.logic.commands.student.StudentAddCommand;
 import seedu.address.logic.commands.student.StudentDeleteCommand;
 import seedu.address.logic.commands.student.StudentEditCommand;
 import seedu.address.logic.commands.student.StudentEnrollCommand;
+import seedu.address.logic.commands.student.StudentExpelCommand;
 import seedu.address.logic.commands.student.StudentListCommand;
 import seedu.address.logic.commands.student.StudentResetFilterCommand;
 import seedu.address.logic.commands.task.TaskAddCommand;
@@ -25,10 +28,13 @@ import seedu.address.logic.commands.tutorialgroup.TutorialGroupDeleteCommand;
 import seedu.address.logic.commands.tutorialgroup.TutorialGroupFilterCommand;
 import seedu.address.logic.commands.tutorialgroup.TutorialGroupListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.grade.GradeEditCommandParser;
+import seedu.address.logic.parser.grade.GradeViewCommandParser;
 import seedu.address.logic.parser.student.StudentAddCommandParser;
 import seedu.address.logic.parser.student.StudentDeleteCommandParser;
 import seedu.address.logic.parser.student.StudentEditCommandParser;
 import seedu.address.logic.parser.student.StudentEnrollCommandParser;
+import seedu.address.logic.parser.student.StudentExpelCommandParser;
 import seedu.address.logic.parser.task.TaskAddCommandParser;
 import seedu.address.logic.parser.task.TaskDeleteCommandParser;
 import seedu.address.logic.parser.task.TaskEditCommandParser;
@@ -75,6 +81,9 @@ public class AddressBookParser {
         case StudentEnrollCommand.COMMAND_WORD:
             return new StudentEnrollCommandParser().parse(arguments);
 
+        case StudentExpelCommand.COMMAND_WORD:
+            return new StudentExpelCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -116,6 +125,12 @@ public class AddressBookParser {
 
         case TaskListCommand.COMMAND_WORD:
             return new TaskListCommand();
+
+        case GradeEditCommand.COMMAND_WORD:
+            return new GradeEditCommandParser().parse(arguments);
+
+        case GradeViewCommand.COMMAND_WORD:
+            return new GradeViewCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
