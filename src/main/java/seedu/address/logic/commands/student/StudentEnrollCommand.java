@@ -79,7 +79,7 @@ public class StudentEnrollCommand extends Command {
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ENROLL_PERSON_SUCCESS, editedStudent));
+        return new CommandResult(String.format(MESSAGE_ENROLL_PERSON_SUCCESS, editedStudent.getTutorialGroup()));
     }
 
     /**

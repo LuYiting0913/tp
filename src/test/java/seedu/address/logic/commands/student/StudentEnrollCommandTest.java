@@ -56,7 +56,8 @@ public class StudentEnrollCommandTest {
         StudentEnrollCommand enrollCommand = new StudentEnrollCommand(INDEX_FIRST_PERSON, new EditStudentDescriptor());
         Student editedStudent = model.getFilteredStudentList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(StudentEnrollCommand.MESSAGE_ENROLL_PERSON_SUCCESS, editedStudent);
+        String expectedMessage = String.format(StudentEnrollCommand.MESSAGE_ENROLL_PERSON_SUCCESS, editedStudent
+                .getTutorialGroup());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
