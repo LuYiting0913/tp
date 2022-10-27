@@ -36,7 +36,6 @@ public class StudentEnrollCommand extends Command {
             + PREFIX_TUTORIAL_GROUP + "TUTORIAL GROUP ";
 
     public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Student to: %1$s ";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
     public static final String MESSAGE_TUTORIAL_GROUP_NOT_FOUND = "This tutorial group is not found.";
     public static final String MESSAGE_NOT_EDITED = "Tutorial group not edited.";
 
@@ -68,9 +67,6 @@ public class StudentEnrollCommand extends Command {
         Student studentToEdit = lastShownList.get(index.getZeroBased());
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
-        if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
 
         if (studentToEdit.belongsTo(editedStudent.getTutorialGroup())
                 && !model.hasTutorialGroup(editedStudent.getTutorialGroup())) {
