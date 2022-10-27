@@ -19,7 +19,7 @@ public class TutorialGroupListCommand extends Command {
 
     public static final String COMMAND_WORD = "tutorial list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tutorial groups";
+    public static final String MESSAGE_SUCCESS = "Listed all tutorial groups: \n";
 
 
     @Override
@@ -33,6 +33,6 @@ public class TutorialGroupListCommand extends Command {
             display += groups.get(i).toString() + "\n";
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + display);
     }
 }

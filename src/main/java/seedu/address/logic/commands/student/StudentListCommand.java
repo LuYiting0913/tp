@@ -17,7 +17,7 @@ public class StudentListCommand extends Command {
 
     public static final String COMMAND_WORD = "student list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all students";
+    public static final String MESSAGE_SUCCESS = "Listed all students: \n";
 
 
     @Override
@@ -31,6 +31,6 @@ public class StudentListCommand extends Command {
             display += students.get(i).toString() + "\n";
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + display);
     }
 }
