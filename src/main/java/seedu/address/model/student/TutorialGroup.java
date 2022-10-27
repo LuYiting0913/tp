@@ -21,6 +21,8 @@ public class TutorialGroup {
 
     public static final String DEFAULT_TUTORIAL_GROUP = "T01";
 
+    public static final TutorialGroup EMPTY_TUTORIAL_GROUP = new TutorialGroup(DEFAULT_TUTORIAL_GROUP);
+
     private final String tutorialGroup;
 
     private final ArrayList<Student> students = new ArrayList<>();

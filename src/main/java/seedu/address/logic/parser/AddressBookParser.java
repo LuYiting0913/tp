@@ -14,6 +14,7 @@ import seedu.address.logic.commands.student.StudentAddCommand;
 import seedu.address.logic.commands.student.StudentDeleteCommand;
 import seedu.address.logic.commands.student.StudentEditCommand;
 import seedu.address.logic.commands.student.StudentEnrollCommand;
+import seedu.address.logic.commands.student.StudentExpelCommand;
 import seedu.address.logic.commands.student.StudentListCommand;
 import seedu.address.logic.commands.student.StudentResetFilterCommand;
 import seedu.address.logic.commands.task.TaskAddCommand;
@@ -29,6 +30,7 @@ import seedu.address.logic.parser.student.StudentAddCommandParser;
 import seedu.address.logic.parser.student.StudentDeleteCommandParser;
 import seedu.address.logic.parser.student.StudentEditCommandParser;
 import seedu.address.logic.parser.student.StudentEnrollCommandParser;
+import seedu.address.logic.parser.student.StudentExpelCommandParser;
 import seedu.address.logic.parser.task.TaskAddCommandParser;
 import seedu.address.logic.parser.task.TaskDeleteCommandParser;
 import seedu.address.logic.parser.task.TaskEditCommandParser;
@@ -74,6 +76,9 @@ public class AddressBookParser {
 
         case StudentEnrollCommand.COMMAND_WORD:
             return new StudentEnrollCommandParser().parse(arguments);
+
+        case StudentExpelCommand.COMMAND_WORD:
+            return new StudentExpelCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
