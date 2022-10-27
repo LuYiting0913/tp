@@ -38,7 +38,7 @@ public class StudentExpelCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TUTORIAL_GROUP + "TUTORIAL GROUP ";
 
-    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Expelled Student from: %1$s ";
+    public static final String MESSAGE_EXPEL_PERSON_SUCCESS = "Expelled Student from: %1$s ";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
     public static final String MESSAGE_TUTORIAL_GROUP_NOT_FOUND = "This tutorial group is not found.";
     public static final String MESSAGE_NOT_EDITED = "Tutorial group not edited.";
@@ -89,7 +89,7 @@ public class StudentExpelCommand extends Command {
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ENROLL_PERSON_SUCCESS, editedStudent));
+        return new CommandResult(String.format(MESSAGE_EXPEL_PERSON_SUCCESS, editedStudent.getTutorialGroup()));
     }
 
     /**
