@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.ObservableMap;
+import seedu.address.model.grade.Grade;
+import seedu.address.model.grade.GradeKey;
 import seedu.address.model.student.Student;
 
 /**
@@ -14,6 +17,10 @@ import seedu.address.model.student.Student;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {
+
+    // A static variable is used because the same gradesMap is used to track
+    // students' grades for tasks across all tasks.
+    private static ObservableMap<GradeKey, Grade> gradesMap;
 
     // Identity fields
     private final TaskName taskName;
@@ -52,6 +59,20 @@ public class Task {
      */
     public Set<Student> getStudents() {
         return Collections.unmodifiableSet(students);
+    }
+
+    /**
+     * Returns an immutable Grade set, which throws {@code UnsupportedOperationException}
+     */
+    public static ObservableMap<GradeKey, Grade> getGradesMap() {
+        return gradesMap;
+    }
+
+    /**
+     * Sets the gradesMap to the given ObservableMap.
+     */
+    public static void setGradesMap(ObservableMap<GradeKey, Grade> gradesMap) {
+        Task.gradesMap = gradesMap;
     }
 
     /**
@@ -97,17 +118,20 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskName())
-                .append(" Task Description: ")
+                .append("\n")
+                .append("Task Description: \n")
                 .append(getTaskDescription())
-                .append(" Task Deadline: ")
+                .append("\n")
+                .append("Task Deadline: \n")
                 .append(getTaskDeadline().toString())
-                .append(" Students: ");
+                .append("\n")
+                .append("Students: \n");
 
         Set<Student> students = getStudents();
         if (students.isEmpty()) {
             builder.append("None");
         } else {
-            students.forEach(builder::append);
+            students.forEach(s -> builder.append(s + "\n"));
         }
         return builder.toString();
     }
