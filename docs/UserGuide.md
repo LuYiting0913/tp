@@ -14,16 +14,23 @@ faster than traditional GUI apps.
 ---
 
 ## Quick start
+
 1. Ensure you have Java `11` or above installed in your Computer.
+
 2. Download the latest TAA.jar from [here](https://github.com/AY2223S1-CS2103T-T13-1/tp/releases/tag/v1.3.trial).
+
 3. Copy the file to the folder you want to use as the home folder for your TAA.
-4. Double-click the file to start the app. The GUI appear in your app should be similar as the one shown below:
+
+4. Double-click the file to start the app. The GUI appear in your app should be similar as the one shown below:<br>
    <img src="images/TAA.png" width="500">
+
 5. Type the command in the command box and press Enter or click the Send button to execute. Some example commands you can try:
    * `student add` `n/John p/96123456 e/john@example.com g/T03`: Adds a student named John to the TAA.
    * `student edit` `1 g/T01`: Edits the student John to change his tutorial group from T03 to T01.
    * `student delete` `1`: Removes the student John from TAA.
+
 6. Refer to the Features below for details of each command.
+
 ---
 
 ## Features
@@ -32,21 +39,21 @@ faster than traditional GUI apps.
 
 **:information_source: Notes about the command format:**<br>
 
-* Words surrounded in angled brackets (`&lt; &gt;`), e.g. `<taskName>` are the parameters to be supplied by the user.<br>
-  e.g. in `tutorial add g/&lt;tutorialGroup&gt;`, `&lt;tutorialGroup&gt;` is a parameter which can be used as `tutorial add g/T03`.
+* Words surrounded in angled brackets (`< >`), e.g. `<taskName>` are the parameters to be supplied by the user.<br>
+  e.g. in `tutorial add g/<tutorialGroup>`, `<tutorialGroup>` is a parameter which can be used as `tutorial add g/T03`.
 
 * Optional parameters are indicated with `(optional)`.<br>
-  e.g. `task add tn/&lt;taskName&gt; i/&lt;taskDescription&gt; d/&lt;taskDeadline&gt; s/&lt;student(s)&gt;(optional)`
+  e.g. `task add tn/<taskName> i/<taskDescription> d/<taskDeadline> s/<student(s)>(optional)`
   can be used as
-  * `task add tn/Assignment #6 i/Recursion d/31/12/2023` or
-  * `task add tn/Assignment #6 i/Recursion d/31/12/2021 s/Thomas Edison` or
-  * `task add tn/Assignment #6 i/Recursion d/31/12/2021 s/Thomas Edison s/George Washington`
+  * `task add tn/Assignment 6 i/Recursion d/31/12/2023` or
+  * `task add tn/Assignment 6 i/Recursion d/31/12/2021 s/Thomas Edison` or
+  * `task add tn/Assignment 6 i/Recursion d/31/12/2021 s/Thomas Edison s/George Washington`
 
 * Arguments with `(s)` after them can be used multiple times including zero times.<br>
-  e.g. See the above example regarding `s/&lt;student(s)&gt;`.
+  e.g. See the above example regarding `s/<student(s)>`.
 
 * Parameters can be specified in any order.<br>
-  e.g. if the command specifies `group expel g/&lt;groupName&gt; s/&lt;studentName&gt;`, both of the following commands are equivalent:
+  e.g. if the command specifies `group expel g/<groupName> s/<studentName>`, both of the following commands are equivalent:
   * `group expel g/T03 s/Billy Boy`
   * `group expel s/Billy Boy g/T03`
 
@@ -58,7 +65,7 @@ faster than traditional GUI apps.
 
 </div>
 
-### Add students : `student add`
+### Add students: `student add`
 
 - Command `student add n/studentName p/phoneNumber e/email g/tutorialGroup(optional) t/tags(optional)`
 - Adds a student with the given phone number, email, tutorial group, and tags to the list of students
@@ -73,29 +80,31 @@ Notes:
 - `<tutorialGroup>` should follow the format Txx, where x is a numeric value, and it should not be blank
 - `<tags>` should be alphanumeric with no white space
 
-### Remove students : `student delete`
+### Remove students: `student delete`
 
-- Command `student delete <index>`
-- Removes the student from the list of students with the given index
+- Command `student delete <indices>`
+- Removes the indexed students(s) from the list of students
 
 Notes:
-- `index` must be a positive integer and must correspond to an existing student
+- Each `index` must be a positive integer which corresponds to an existing student
+- You can delete multiple students at once by separating the indices with a space. e.g. `student delete 1 2 3`
 
-### Edit students : `student edit`
+### Edit students: `student edit`
 
 - Command `student edit <index> n/<studentName>(optional) p/<studentPhone>(optional) e/<studentEmail>(optional) g/<tutorialGroup>(optional) t/<tag>(optional)`
 - Edits the student by its given index with at least 1 variable specified to change.
 
 Notes:
-- `index` must be a positive integer and must correspond to an existing student
+- `index` must be a positive integer and must correspond to an existing student.
+- You may remove all of a student's tags by typing `t/` without specifying any tags after it.
 
-### List students : `student list`
+
+### List students: `student list`
 
 - Command `student list`
-- Abbreviate with `students`
 - Shows a list of all students
 
-### Add new task : `task add`
+### Add new task: `task add`
 
 - Command `task add tn/<taskName> i/<taskDescription> d/<taskDeadline> s/<student(s)>(optional)`
 - Adds a task to the list of tasks
@@ -109,13 +118,14 @@ Notes:
 
 ### Remove task: `task delete`
 
-- Command `task delete <index>`
-- Removes the indexed task from the list of tasks
+- Command `task delete <indices>`
+- Removes the indexed task(s) from the list of tasks
 
 Notes:
-- `index` must be a positive integer and valid
+- Each `index` must be a positive integer which corresponds to an existing task
+- You can delete multiple tasks at once by separating the indices with a space. e.g. `task delete 1 2 3`
 
-### Edit task : `task edit`
+### Edit task: `task edit`
 
 - Command `task edit <index> tn/<taskName>(optional) i/<taskDescription>(optional) d/<taskDeadline>(optional) s/<student(s)>(optional)`
 - Edits the task by its given index with at least 1 variable specified to change.
@@ -123,23 +133,22 @@ Notes:
 Notes:
 - `index` must be a positive integer and valid
 
-### List tasks :
+### List tasks: `task list`
 
 - Command `task list`
-- Abbreviate with `tasks`
 - Shows a list of tasks
 
-### Add new tutorial group : `tutorial add`
+### Add new tutorial group: `tutorial add`
 
 - Command `tutorial add g/<tutorialGroup>`
 - Adds the tutorial group with the name `tutorialGroup`
 
-### Remove tutorial group : `tutorial delete`
+### Remove tutorial group: `tutorial delete`
 
 - Command `tutorial delete g/<tutorialGroup>`
 - Removes the tutorial group with the name `tutorialGroup`
 
-### Enroll a student into a group : `student enroll`
+### Enroll a student into a group: `student enroll`
 
 - Command `student enroll <index> g/<groupName>`
 - Enrolls the student at index i to the group named `groupName`
@@ -148,6 +157,16 @@ Notes:
 
 - Command `student expel <index> g/<groupName>`
 - Removes the student at index i from the group `groupName`.
+
+### View all students in a tutorial group: `tutorial filter`
+
+- Command `tutorial filter g/<groupName>`
+- Displays only students from the group `groupName` in the GUI.
+
+### Reset filters and show all students `student unfilter`
+
+- Command `student unfilter`
+- Undoes the `tutorial filter` command and displays all students in the GUI.
 
 ### Mark assignment as graded or ungraded: `grade edit`
 
@@ -159,42 +178,31 @@ Notes:
 - Command `grade view <studentIndex> <taskIndex>`
 - Shows the grade status of the specified student's assignment
 
-### Display user guide url : `help me`
+### Display user guide url: `help me`
 
 - Command `help me`
 - Shows a popup with the user guide url in it
 
-### Exit the app : `bye bye`
+### Exit the app: `bye bye`
 
 - Command `bye bye`
 - Exit and close the app
-
-_Details coming soon..._
 
 ---
 
 ## FAQ
 
-#### What if I forgot the command format?
+#### What if I forget the command format?
 - A list of commands will be displayed after the launch of the program.
 - You can also click on the help button to view the commands.
 
-#### Why I cannot add a student?
+#### Why can't I add a student?
 - Check the format of your add command. You can refer to the pop-up message or the help page for the command format.
 - Check if the name of the new student belongs to another student.
 
-#### Why I cannot enroll a student to a tutorial group?
-- Check whether the specified student and tutorial group exist.
-- Check if you input the correct student name.
--
-#### What if I just want to modify one field of a student? Do I need to type out the rest fields?
-- The student edit command supports any number of field changes. Omit the fields you do not wish to change.
-
-#### How to remove the student filter?
-
-#### 
-
-_Details coming soon..._
+#### Why can't I enroll a student to a tutorial group?
+- Check whether the specified student and tutorial group exists.
+- Check if you have entered the correct student name.
 
 ---
 
@@ -203,22 +211,19 @@ _Details coming soon..._
 | Action                             | Format, Examples                                                                                                                                                                 |
 |------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add student**                    | `student add n/studentName p/phoneNumber e/email g/tutorialGroup(optional) t/tags(optional)` e.g. `student add n/James Ho p/98765432 e/a@gmail.com g/T03 t/yearTwo`              |
-| **Remove student**                 | `student delete <index>` e.g. `student delete 1`                                                                                                                                 |
+| **Remove student(s)**              | `student delete <indices>` e.g. `student delete 1 3`                                                                                                                             |
 | **Edit student**                   | `student edit <index> n/<studentName>(optional) p/<studentPhone>(optional) e/<studentEmail>(optional) g/<tutorialGroup>(optional) t/<tag>(optional)` e.g. `student edit 1 g/T05` |
 | **List students**                  | `student list`                                                                                                                                                                   |
 | **Add task**                       | `task add tn/<taskName> i/<taskDescription> d/<taskDeadline> s/<student(s)>(optional)` e.g. `task add tn/Grade Mission 1 i/Due Tomorrow d/10/12/2022 s/James Ho`                 |
-| **Remove task**                    | `task delete <index>` e.g. `task delete 1`                                                                                                                                       |
-| **Rename task**                    | `task edit <index> tn/<taskName>(optional) i/<taskDescription>(optional) d/<taskDeadline>(optional) s/<student(s)>(optional)` `e.g. task edit 1 d/11/12/2020`                    |
+| **Remove task(s)**                 | `task delete <indices>` e.g. `task delete 2 4`                                                                                                                                   |
+| **Edit task**                      | `task edit <index> tn/<taskName>(optional) i/<taskDescription>(optional) d/<taskDeadline>(optional) s/<student(s)>(optional)` `e.g. task edit 1 d/11/12/2020`                    |
 | **List tasks**                     | `task list`                                                                                                                                                                      |
-| **Mark task**                      | `task mark i/TASK_NUMBER` e.g. `task mark i/1`                                                                                                                                   |
-| **Unmark task**                    | `task unmark i/TASK_NUMBER` e.g. `task unmark i/1`                                                                                                                               |
-| **Assign task**                    | `task assign n/TASK_NAME n/STUDENT_NAME` e.g. `task assign n/Grade Mission 2 n/James Ho`                                                                                         |
 | **Add tutorial group**             | `tutorial add g/<tutorialGroup>` e.g. `tutorial add g/T01`                                                                                                                       |
 | **Remove tutorial group**          | `tutorial delete g/<tutorialGroup>` e.g. `tutorial delete g/T01`                                                                                                                 |
 | **Enrol student**                  | `student enroll <index> g/<groupName>` e.g. `student enrol 1 g/T03`                                                                                                              |
-| **Expel student**                  | `student expel <index>  g/<groupName>`  e.g. `student expel 1 g/T03`                                                                                                             |
-| **Mark assignment as graded**      | `grade edit <studentIndex> <taskIndex> gr/T` e.g. `grade edit 1 1 tr/T`                                                                                                          |
-| **Mark assignment as ungraded**    | `grade edit <studentIndex> <taskIndex> gr/F` e.g. `grade edit 2 1 tr/F`                                                                                                          |
+| **Expel student**                  | `student expel <index> g/<groupName>` e.g. `student expel 1 g/T03`                                                                                                               |
+| **Mark assignment as graded**      | `grade edit <studentIndex> <taskIndex> gr/T` e.g. `grade edit 1 1 gr/T`                                                                                                          |
+| **Mark assignment as ungraded**    | `grade edit <studentIndex> <taskIndex> gr/F` e.g. `grade edit 2 1 gr/F`                                                                                                          |
 | **View assignment grading status** | `grade view <studentIndex> <taskIndex>` e.g. `grade view 3 7`                                                                                                                    |
-| **Display the user guide url**     | `help me`                                                                                                                                                                        |
+| **Display the user guide URL**     | `help me`                                                                                                                                                                        |
 | **Exit the app**                   | `bye bye`                                                                                                                                                                        |
