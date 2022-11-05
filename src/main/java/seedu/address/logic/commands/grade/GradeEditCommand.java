@@ -26,11 +26,11 @@ public class GradeEditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the grade of the student's task "
             + "by the index number used in the displayed student list and task list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: STUDENT_INDEX TASK_INDEX (must be positive integers)"
-            + "[" + PREFIX_GRADE + "GRADE]...\n"
+            + "Parameters: STUDENT_INDEX TASK_INDEX (must be positive integers and NOT TOO BIG)"
+            + "[" + PREFIX_GRADE + "GRADE (T or F)]...\n"
             + "Example: " + COMMAND_WORD + " 1 2 "
             + PREFIX_GRADE + "T";
-    public static final String MESSAGE_EDIT_GRADE_SUCCESS = "Edited Task and Student: %s %s";
+    public static final String MESSAGE_EDIT_GRADE_SUCCESS = "Grade %s of Task %s and Student %s";
     public static final String MESSAGE_NOT_EDITED = "T OR F must be provided";
     public static final String MESSAGE_STUDENT_TASK_PAIR_NOT_FOUND = "This student and task pair is not found.";
     private final Index studentIndex;
@@ -62,15 +62,17 @@ public class GradeEditCommand extends Command {
         } else if (taskIndex.getZeroBased() >= lastShownTaskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        // TODO check if student is in task
         Student studentGradeToEdit = lastShownStudentList.get(studentIndex.getZeroBased());
         Task taskGradeToEdit = lastShownTaskList.get(taskIndex.getZeroBased());
+        if (!taskGradeToEdit.hasStudent(studentGradeToEdit)) {
+            throw new CommandException(MESSAGE_STUDENT_TASK_PAIR_NOT_FOUND);
+        }
         Grade editedGrade = createEditedGrade(studentGradeToEdit, taskGradeToEdit, editGradeDescriptor);
         model.addGrade(new GradeKey(studentGradeToEdit, taskGradeToEdit), editedGrade);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        return new CommandResult(String.format(MESSAGE_EDIT_GRADE_SUCCESS, studentGradeToEdit, taskGradeToEdit));
+        return new CommandResult(String.format(MESSAGE_EDIT_GRADE_SUCCESS, editedGrade.name(),
+                taskGradeToEdit.getTaskName().taskName, studentGradeToEdit.getName()));
     }
 
     /**
