@@ -15,10 +15,9 @@ Given below are my contributions to the project.
   * [Created Issues/PRs](https://github.com/AY2223S1-CS2103T-T13-1/tp/issues?q=author%3Aluyiting0913)
 
 
-- **New Feature**: 
+- **New Feature**:
   - Added tutorial group functionalities and commands.
   - Added enroll and expel functionalities for students.
-  
 
 - **Documentation**:
 
@@ -33,3 +32,4 @@ Given below are my contributions to the project.
 
   - **Contributions beyond the project team**:
     * [Reported bugs for PED](https://github.com/LuYiting0913/ped/issues)
+
