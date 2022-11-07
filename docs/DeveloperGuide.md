@@ -3,6 +3,12 @@ layout: page
 title: Developer Guide
 ---
 
+## Welcome to the TAA Developer Guide!
+*Teaching Assistant Assistant (TAA)* is a **desktop app for Teaching Assistants (TA) to track student progress and tasks,
+optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+This developer guide serves the purpose of helping developers to quickly gain the knowledge they need to start contributing in developing TAA.
+
 * Table of Contents
 {:toc}
 
@@ -54,7 +60,7 @@ The rest of the App consists of four components.
 
 **How the architecture components interact with each other**
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `student delete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -96,14 +102,14 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
+1. When `Logic` is called upon to execute a command, it uses the `TaaParser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
    * If the command takes in no arguments, the `Command` is directly created.
    * If the command takes in arguments, a parser is created to create the `Command`.
 3. The command can communicate with the `Model` when it is executed (e.g. to add a student).
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("student delete 1")` API call.
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -116,14 +122,14 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 - Let `ABC` represent the name of a command that takes in at least one argument. Examples of `ABC` include `TaskDelete` and `TutorialGroupAdd`. 
-- When called upon to parse a user command, the `AddressBookParser` class creates an `ABCCommandParser` that uses the other classes shown above to parse the user command to create an `ABCCommand` object (e.g., `TaskDeleteCommand`) which the `AddressBookParser` returns back as a `Command` object.
+- When called upon to parse a user command, the `TaaParser` class creates an `ABCCommandParser` that uses the other classes shown above to parse the user command to create an `ABCCommand` object (e.g., `TaskDeleteCommand`) which the `TaaParser` returns back as a `Command` object.
 - All `ABCCommandParser` classes inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 
 **API** : [`Model.java`](https://github.com/AY2223S1-CS2103T-T13-1/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="700" />
+![ModelClassDiagram](images/ModelClassDiagram.png)
 
 The `Model` component,
 
@@ -138,7 +144,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/AY2223S1-CS2103T-T13-1/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+![StorageClassDiagram](images/StorageClassDiagram.png)
 
 The `Storage` component,
 
@@ -156,6 +162,17 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Summary of Implementations
+
+| Feature                                                    | Description                                                     |
+|------------------------------------------------------------|-----------------------------------------------------------------|
+| **[Tutorial Group](#tutorial-group-feature)**              | Allows the user to add tutorial groups to students              |
+| **[Task](#task-feature)**                                  | Allows the user to add tasks to students                        |
+| **[Grade](#grade-feature)**                                | Allows the user to add grades to students                       |
+| **[Task Sorting](#sort-task-by-deadline-feature)**         | Allows the user to sort tasks by deadline                       |
+| **[Mass Actions](#mass-actions-feature)**                  | Allows the user to perform actions on multiple students at once |
+| **[Expanding Task List](#expanding-tasklistcard-feature)** | Allows the user to expand the task list to see more details     |
+
 ### Sort task by deadline feature
 
 #### Implementation
@@ -164,9 +181,11 @@ The sort task by deadline mechanism will be implemented without the need to ente
 
 Additionally, its feature is exposed in the `List` interface by calling its `sort` method.
 
+The sort method wil automatically sort its tasks by ascending order whenever a new task is added or an existing task is edited.
+
 Given below is an example usage scenario of adding a new task and how the task sorted by deadline mechanism behaves.
 
-Step 1. The user launches the application and enters the respective `taskAdd` command.
+Step 1. The user launches the application and enters the respective `task add` command.
 
 Step 2. If the command is successful, a `task` object is created and will eventually be passed to `UniqueTaskList`.
 
@@ -180,6 +199,8 @@ Step 6. The `sort` method takes in an object of type Comparator which compares t
 
 Step 7. The `sort` method then iterate the object of type `ObservableList<Task>` and arrange them according to their deadline in ascending order.
 
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario during task sort when a user adds a new task. Similar interactions take place when a user edits a task or removes a task.
+<img src="images/SortTask.png" width="550"/>
 #### Design considerations:
 
 **Aspect: How sorting task by deadline executes:**
@@ -229,6 +250,9 @@ The task feature is facilitated by `Task`. It implements the following operation
 * Marking Tasks as done using the Task's index (In Progress)
 * Viewing Tasks
 
+Below is the class diagram for Task.
+<img src="images/TaskClassDiagram.png" width="950" />
+
 #### Design Considerations
 
 The implementation is quite similar to what was done for the base AB3, as well as
@@ -243,6 +267,10 @@ the task, since the students would be new and not in the `Model` yet. Thus, we h
 instead opting to defer the creation of the new `Task` to the `Model` itself. This was done by rewriting the
 code to parse in all the fields of `Task` and leaving student as a list of Strings, which we then use to search through
 the `Model` to find the students that are assigned to the task.
+
+Show below is an activity diagram of how a task is edited.
+
+![Task Edit Activity Diagram](images/TaskEditActivityDiagram.png)
 
 ### Mass Actions feature
 
@@ -267,11 +295,15 @@ however, it seemingly would not be as clean as the current implementation, as th
 to handle one or more indices, while the alternative implementation would be doing double work to cover the case with
 one index.
 
-### Expanding `TaskListCard` Feature
+### Expanding `TaskListCard` feature
 
 #### Description
 
 In TAA, the user can specify which `Student`s a `Task` has to be completed for. In the UI, each `Task` is displayed as a `TaskListCard`. The `TaskListCard` can be clicked to show or hide the `Student`s.
+
+The part of the UI highlighted in blue and grey are the `TaskListCard`s. The blue card has been clicked to show the `Student`s, while the grey card has a collapsed `Student` list.
+
+<img src="images/TaskListCard.png" width="650" />
 
 #### Implementation
 
@@ -292,6 +324,9 @@ If a `Task` has no `Student`s,
 2. **Display the students for a task in a pop-up dialog box.** This is rejected because we wish to minimise the number of mouse clicks needed to switch from viewing the students under Task 1 to viewing the students under Task 2.
     * In the current design, the user only needs to click once on Task 2 to collapse Task 1 and expand Task 2.
     * This alternative design requires the user to click on the **Close** button on Task 1's dialog box, and then click again on Task 2.
+
+Here's an activity diagram to demonstrate the Expanding TaskListCard feature.
+<img src="images/TaskExpandActivityDiagram.png" width="350"/>
 
 ### Grade feature
 
@@ -325,6 +360,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `GradeViewCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches
 the end of diagram.</div>
 
+The following activity diagram summarizes what happens when the user executes this command:
+
+<img src="images/GradeViewActivityDiagram.png" width="650" />
+
 ###### Editing the grade with `grade edit`
 
 The sequence diagram below illustrates the interactions within the `Logic` component for the `execute("grade view 1 2 gr/T")` API call, where `1` is the student index and `2` is the task index.
@@ -333,6 +372,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `GradeEditCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches
 the end of diagram.</div>
+
+The following activity diagram summarizes what happens when the user executes this command:
+
+<img src="images/GradeEditActivityDiagram.png" width="650" />
 
 #### Design Considerations
 
@@ -393,88 +436,7 @@ In the interest of future extensibility and fast implementation, `Grade` was mad
 
 The `HashMap` Java Collection was chosen because of faster lookups, since in the current iteration of TAA, the `GradeMap` is only used to add and retrieve grades. However, in the future, `GradeMap` can be changed easily to use a `TreeMap` instead. A `TreeMap` implementation would prove useful if more than 2 grades are added and a filter feature is desired, for example, get a list of `Student`s who scored more than a `B` in a particular `Task`. `ArrayList` was rejected because it is cumbersome to implement and is not as performant.
 
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-- `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-- `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-- `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-Step 2. The user executes `delete 5` command to delete the 5th student in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-
-Step 3. The user executes `add n/David …​` to add a new student. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-- **Alternative 1 (current choice):** Saves the entire address book.
-
-  - Pros: Easy to implement.
-  - Cons: May have performance issues in terms of memory usage.
-
-- **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  - Pros: Will use less memory (e.g. for `delete`, just save the student being deleted).
-  - Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 ---
-
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 - [Documentation guide](Documentation.md)
@@ -509,54 +471,16 @@ _{Explain here how the data archiving feature will be implemented}_
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | Priority | As a …​                                          | I want to …​                                                           | So that I can…​                                        |
-| -------- | ------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------ |
+|----------|--------------------------------------------------|------------------------------------------------------------------------|--------------------------------------------------------|
 | `* * *`  | new user                                         | see usage instructions                                                 | refer to instructions when I forget how to use the App |
-| `* * *`  | Teaching Assistant                               | be able to manage (CRUD) a list of my students                         |                                                        |
-| `* * *`  | Teaching Assistant                               | be able to manage (CRUD) any student’s task list                       |                                                        |
+| `* * *`  | Teaching Assistant                               | be able to manage (CRUD) a list of my students                         | find and manage my students                            |
+| `* * *`  | Teaching Assistant                               | be able to manage (CRUD) any student’s task list                       | find and manage my tasks                               |
 | `* * *`  | Teaching Assistant                               | keep track of which students’ assignments I have graded and not graded | can find the ungraded assignments faster               |
 | `* * *`  | Teaching Assistant with multiple tutorial groups | keep track of which student is in which group                          | manage students based on their tutorial groups         |
 | `* * *`  | Teaching Assistant                               | be able to assign deadlines to my tasks                                | keep track of the upcoming tasks easily                |
 | `* * *`  | Teaching Assistant                               | a way to do mass actions                                               | can save time                                          |
-| `* * *`  | Teaching Assistant                               | leave comments on students’ submissions                                | can help them learn from their mistakes                |
-| `* * *`  | busy Teaching Assistant                          | want to prioritise tasks based on their deadline                       | can avoid missing deadlines                            |
-
-- As a Teaching Assistant, I want to be able to manage (CRUD) a list of my students. `* * *`
-- As a Teaching Assistant, I want to be able to manage (CRUD) any student’s task list. `* * *`
-- As a Teaching Assistant, I want to keep track of which students’ assignments I have graded and not graded. `* * *`
-- As a Teaching Assistant with multiple tutorial groups, I want to keep track of which student is in which group. `* * *`
-- As a Teaching Assistant, I want to be able to assign deadlines to my tasks. `* * *`
-- As a Teaching Assistant, I want a way to do mass actions (e.g. create a task for each student in a group) so that I can save unnecessary time `* *`
-- As a Teaching Assistant, I want to leave comments on students’ submissions so that students can learn from their mistakes. `* *`
-- As a busy Teaching Assistant, I want to prioritise tasks based on their deadline. `* *`
-
-**(To be added)**
-
-- As a Teaching Assistant, I want to manage each of my student’s progress. `*`
-- As a Teaching Assistant, I want to manage each of my student’s class participation marks. `*`
-- As a Teaching Assistant, I want to be able to estimate how much time I need to complete my tasks. `*`
-- As a Teaching Assistant, I want to be able to categorise students based on how much help I think they need. `*`
-- As a Teaching Assistant, I want to be able to see which student’s question I should reply to first. `*`
-- As a Teaching Assistant, I need to know where and when my next tutorial is held. `*`
-- As a Teaching Assistant, I need to know students' performance in exams. `*`
-- As a Teaching Assistant, I want to divide students into pairs randomly during lessons to encourage teamwork. `*`
-- As a Teaching Assistant, I want to categorise submissions based on students. `*`
-- As a Teaching Assistant, I want to filter out assignments submitted after the deadline so I can penalise accordingly. `*`
-- As a Teaching Assistant, I need to take attendance (mass selection) (for convenience) `*`
-- As a Teaching Assistant, I want to leave comments on students’ submissions so that students can learn from their mistakes. `*`
-- As a Teaching Assistant, I want to send notifications to students who failed to submit their homework on time. `*`
-- As a Teaching Assistant, I want to view the distribution/summary of scores so I can see how well my students have understood the knowledge. `*`
-- As a Teaching Assistant, I want a way to send out mass email so that I won’t miss out on any of my students `*`
-- As a Teaching Assistant, I want a way to do mass actions so that I can save unnecessary time `*`
-- As a Teaching Assistant, I want to track each of my student’s strengths and weaknesses so that I can better nurture their individual learning progress. `*`
-- As a Teaching Assistant, I want a way to separate my stronger and weaker students so that it is easier for me to help them strive towards their academic goal. `*`
-- As a Teaching Assistant, I want a way to classify my students learning at different speeds so that I can better help them grow at their own learning pace. `*`
-- As a Teaching Assistant, I want to classify asked questions to a folder so that my students can refer to it easily without having me to spend unnecessary time repeating myself. `*`
-- As a Teaching Assistant, I want to have fine-grained control over the commands I send using flags in the command line `*`
-- As a Teaching Assistant, I want to be able to use the command line to pipe the output of my program to pipe to different Unix commands `*`
-- As a Teaching Assistant, I want to be able to automate certain tasks such as marking off certain tasks if they are certain events that have passed `*`
-- As a Teaching Assistant, I want a way to export and keep offsite backups of my data so that I do not need to worry of any corruption issues or loss of data\*_ `_`
-- As a Teaching Assistant, I want a way to import data into the program so that I can have multiple systems with the same persistent data._ `_`
-- As a Teaching Assistant, I want a way to randomly select a student’s name in the class so someone can respond to in-class questions. `*`
+| `* *`    | Teaching Assistant                               | leave comments on students’ submissions                                | can help them learn from their mistakes                |
+| `* *`    | busy Teaching Assistant                          | want to prioritise tasks based on their deadline                       | can avoid missing deadlines                            |
 
 ### Use cases
 
@@ -746,29 +670,85 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
       Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Using the application
 
-### Deleting a student
+#### Student management
+1. Creating, removing, and viewing students
+   
+   1. Create a student with the name "John Doe" using `student add n/John Doe e/abc@example.com p/91234567`. <br>
+      Expected: The UI is updated with the new student list.
+   2. Edit the student with the command `student edit 4 p/97654321`
+   3. Delete the student with the command `student delete 4`
 
-1. Deleting a student while all students are being shown
+#### Task management
+1. Creating, removing, grading and viewing tasks
 
-   1. Prerequisites: List all students using the `list` command. Multiple students in the list.
+    1. Create a student with the name "Assignment 1" using `task add tn/Assignement 1 i/Complete Assignment 1 d/10/10/2022`. <br>
+    2. Click on the `Tasks` Button on the left side of the screen. <br>
+       Expected: The UI is updated with the new task list.
+    3. Edit the student with the command `task edit 1 s/David Li`
+    4. Double click on the task to view the task details.
+       Expected: The details shows the list of students assigned to the task.
+    5. Grade the student with the command `grade edit 1 1 gr/T`
+    6. Change the view back the students, then switch back to Tasks view, the task should be updated with the new grade. <br>
+**:information_source: This is a known bug with JavaFX**<br>
+    7. Delete the student with the command `task delete 1`
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+#### Tutorial group management
+1. Creating and managing tutorial groups
+   1. Create a new tutorial group with the format TXX. `tutorial add g/T01` 
+   2. See a list of tutorial groups using `tutorial list` <br>
+      Expected: A list of tutorial groups is shown.
+   3. Add a student to the tutorial group with the format `student enroll 1 g/T01`
+   4. The UI should be updated with the new student list with update tutorial group info.
+   5. Filter the student list by tutorial group with the format `tutorial filter g/T01`
+   6. Clear the filter with the format `student unfilter`
 
-   1. Test case: `delete 0`<br>
-      Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
+### General Use Cases
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+#### Help
+1. Type `help me` for a link to the user guide. <br>
+   Expected: A new window is opened with the user guide link.
 
-1. _{ more test cases …​ }_
+#### Exiting the program
+1. Type `bye bye` <br>
+   Expected: The application exits. Data is automatically saved.
 
-### Saving data
+## Appendix: Effort
 
-1. Dealing with missing/corrupted data files
+### Difficulty Level
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+<div markdown="block" class="alert alert-info">
+If the implementation effort required to create AB3 from scratch is 10, the estimated 
+implementation effort of this team is, [0..20] e.g., if you give 8, that means the team's 
+effort is about 80% of that spent on creating AB3. We expect most typical teams to score near to 10.
+</div>
 
-1. _{ more test cases …​ }_
+Difficulty Level: 12
+
+#### Effort required
+Justification for the difficulty level: 
+1. Moving parts - While AB3 uses only one entity type, Persons, which was adapted to be our Student, we have
+multiple entities, namely Student, Task, Tutorial Group, and Grade. This means that we have to implement
+multiple classes, and multiple classes that interact with each other.
+2. Different purposes - While _some_ of the code for AB3 commands could be reused, there were many cases where
+the code had to be redesigned and rewritten in order to fit the purpose of our application.
+    1. For example, the Task Edit Command had to be completely rewritten because we required the ability to 
+search through the current model's list of students using a list of strings, and then generating a CommandOutput
+from that
+    2. Other examples include the all the Grade Commands, which had to be written from scratch, as well as the
+Tutorial Group filtering.
+    3. The grade command uses a Map to store the grades of students, which is a new data structure that we had to
+to add into the code, not previously used in AB3.
+3. New features - We have many new features that were not present in AB3, such as the ability to grade students,
+filter, as well as introducing tasks, tutorial groups and grades.
+
+### Challenges Faced
+
+1. **Learning JavaFX** - We had to learn JavaFX in order to implement the GUI. This was a challenge because
+there was a steep learning curve, and we had to learn how to use FXML, as well as how to use the JavaFX API.
+2. **Implementing complex features** - We had to implement many complex features, such as the ability to grade,
+edit tasks, and filter by tutorial group. This was a challenge because we had to design the implementation from
+scratch and think about the the relationships between the different classes.
+3. **Learning Git** - We had to learn how to use Git in order to collaborate on the project. This was a challenge
+as most of us had never used Git before, and we had to learn how to use it in order to collaborate on the project.

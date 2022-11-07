@@ -33,15 +33,21 @@ Given below are my contributions to the project.
   - Tutorial group class test
   - Tutorial group add command test
   - Tutorial group delete command test
-  
+
 
 - **Documentation**:
 
   - User Guide [#122](https://github.com/AY2223S1-CS2103T-T13-1/tp/pull/122)
     - Add new features and command to UG [#102](https://github.com/AY2223S1-CS2103T-T13-1/tp/pull/102)
+<<<<<<< HEAD
     
   - Developer Guide:
     - Add user stories and user stories [#98](https://github.com/AY2223S1-CS2103T-T13-1/tp/pull/98) 
+=======
+
+  - Developer Guide:
+    - Add user stories and user stories [#98](https://github.com/AY2223S1-CS2103T-T13-1/tp/pull/98)
+
     - Update UML Diagrams [#130](https://github.com/AY2223S1-CS2103T-T13-1/tp/pull/130)
 
   - **Reviewing/mentoring contributions**:
